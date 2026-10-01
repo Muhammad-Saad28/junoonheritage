@@ -6,9 +6,10 @@ const config: Config = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: parsedConfig.darkMode as "class",
-  theme: parsedConfig.theme,
+  theme: parsedConfig.theme as any,
   plugins: [],
 };
 export default config;

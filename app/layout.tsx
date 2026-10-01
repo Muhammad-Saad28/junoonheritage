@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description: "An archival culinary journey traversing royal Mughal repasts and the raw, wood-fired hearths of the Indus.",
 };
 
+import JunoonLight from "@/components/JunoonLight";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,6 +23,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
       </head>
       <body className="bg-surface font-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-on-secondary-fixed">
+        <JunoonLight />
         {children}
       </body>
     </html>
