@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 
 export default function ReservationsPage() {
   return (
-    <main className="w-full bg-[#3e472f] min-h-screen pt-24 text-white">
+    <main className="w-full bg-junoon-dark min-h-screen pt-24 text-white">
       <Navbar />
       <section className="max-w-[1440px] mx-auto px-6 py-12 md:py-24 flex flex-col items-center">
         <div className="text-center mb-12">
@@ -25,12 +25,12 @@ export default function ReservationsPage() {
                 <label className="text-[#d4af37] font-label-caps text-xs tracking-[0.2em] mb-2">DATE</label>
                 <input 
                   type="date" 
-                  className="bg-[#3e472f] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors"
+                  className="bg-[#1A140F] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors"
                 />
               </div>
               <div className="flex flex-col">
                 <label className="text-[#d4af37] font-label-caps text-xs tracking-[0.2em] mb-2">TIME</label>
-                <select className="bg-[#3e472f] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors">
+                <select className="bg-[#1A140F] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors">
                   <option>19:00</option>
                   <option>19:30</option>
                   <option>20:00</option>
@@ -44,7 +44,7 @@ export default function ReservationsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col">
                 <label className="text-[#d4af37] font-label-caps text-xs tracking-[0.2em] mb-2">GUESTS</label>
-                <select className="bg-[#3e472f] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors">
+                <select className="bg-[#1A140F] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors">
                   <option>2 Guests</option>
                   <option>3 Guests</option>
                   <option>4 Guests</option>
@@ -57,7 +57,7 @@ export default function ReservationsPage() {
                 <input 
                   type="text" 
                   placeholder="John Doe"
-                  className="bg-[#3e472f] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors"
+                  className="bg-[#1A140F] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors"
                 />
               </div>
             </div>
@@ -67,7 +67,7 @@ export default function ReservationsPage() {
               <input 
                 type="email" 
                 placeholder="contact@example.com"
-                className="bg-[#3e472f] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors"
+                className="bg-[#1A140F] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors"
               />
             </div>
 
@@ -76,7 +76,7 @@ export default function ReservationsPage() {
               <textarea 
                 rows={3}
                 placeholder="Dietary requirements, celebrations..."
-                className="bg-[#3e472f] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors resize-none"
+                className="bg-[#1A140F] border border-[#d4af37]/30 text-white p-3 focus:outline-none focus:border-[#d4af37] transition-colors resize-none"
               ></textarea>
             </div>
 

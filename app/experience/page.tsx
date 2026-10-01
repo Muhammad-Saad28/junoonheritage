@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 
 export default function ExperiencePage() {
   return (
-    <main className="w-full bg-[#3e472f] min-h-screen pt-24 text-white">
+    <main className="w-full bg-junoon-dark min-h-screen pt-24 text-white">
       <Navbar />
       <section className="max-w-[1440px] mx-auto px-6 py-12 md:py-24">
         <div className="text-center mb-16">
@@ -14,7 +14,7 @@ export default function ExperiencePage() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center mt-20">
-          <div className="aspect-square bg-[#4a582c] flex items-center justify-center overflow-hidden border border-[#d4af37]/20 shadow-2xl">
+          <div className="aspect-square bg-[#1A140F] flex items-center justify-center overflow-hidden border border-[#d4af37]/20 shadow-2xl">
             <img src="/frames/junoon-frame-150.webp" alt="Wood-fired hearth" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" />
           </div>
           <div className="px-8">
@@ -38,7 +38,7 @@ export default function ExperiencePage() {
               Whether you are seated at an intimate table or in our grand dining hall, the atmosphere at Junoon is crafted to make every meal feel like a royal banquet.
             </p>
           </div>
-          <div className="aspect-square bg-[#4a582c] flex items-center justify-center overflow-hidden border border-[#d4af37]/20 shadow-2xl order-1 md:order-2">
+          <div className="aspect-square bg-[#1A140F] flex items-center justify-center overflow-hidden border border-[#d4af37]/20 shadow-2xl order-1 md:order-2">
             <img src="/frames/junoon-frame-290.webp" alt="Ambiance" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" />
           </div>
         </div>

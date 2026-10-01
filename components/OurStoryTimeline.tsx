@@ -39,7 +39,7 @@ export default function OurStoryTimeline() {
 
     if (containerRef.current && scrollWrapperRef.current) {
       const sections = gsap.utils.toArray(".timeline-panel");
-      
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -53,7 +53,7 @@ export default function OurStoryTimeline() {
         xPercent: -100 * (sections.length - 1),
         ease: "none",
       });
-      
+
       // Progress line animation
       gsap.to(".progress-line-fill", {
         scaleX: 1,
@@ -70,7 +70,7 @@ export default function OurStoryTimeline() {
 
   return (
     <section ref={containerRef} className="h-screen w-full bg-[#0a0d07] overflow-hidden flex flex-col relative text-white">
-      
+
       {/* Title block fixed during pin */}
       <div className="absolute top-12 left-12 md:top-24 md:left-24 z-20 pointer-events-none">
         <div className="flex items-center gap-3 mb-4">
@@ -84,24 +84,24 @@ export default function OurStoryTimeline() {
 
       {/* Horizontal Scroll Wrapper */}
       <div ref={scrollWrapperRef} className="flex h-full w-[300vw] items-center relative z-10">
-        
+
         {/* Continuous background line */}
         <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -translate-y-1/2 z-0" />
         <div className="progress-line-fill absolute top-1/2 left-0 w-full h-[1px] bg-[#d4af37] -translate-y-1/2 z-0 origin-left scale-x-0" />
 
         {TIMELINE_DATA.map((item, index) => (
           <div key={item.year} className="timeline-panel w-screen h-full flex flex-col items-center justify-center relative px-8 md:px-24">
-            
+
             <div className="w-full max-w-5xl flex flex-col md:flex-row items-center gap-12 md:gap-24 mt-20 md:mt-24">
-              
+
               {/* Image with specific filter */}
               <div className={`w-full md:w-5/12 lg:w-4/12 aspect-[4/5] max-h-[50vh] relative overflow-hidden mt-12 md:mt-0`}>
-                <div 
+                <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 hover:scale-105"
-                  style={{ 
+                  style={{
                     backgroundImage: `url(${item.image})`,
-                    filter: item.filter 
-                  }} 
+                    filter: item.filter
+                  }}
                 />
                 <div className="absolute inset-0 bg-black/20" />
                 {/* Gold frame overlay */}
@@ -113,7 +113,7 @@ export default function OurStoryTimeline() {
                 <span className="font-playfair text-6xl md:text-8xl text-white/10 absolute -top-10 md:-top-20 -left-4 md:-left-10 select-none">
                   {item.year}
                 </span>
-                
+
                 {/* Timeline node */}
                 <div className="hidden md:flex absolute top-1/2 -left-12 md:left-[-6rem] w-4 h-4 rounded-full bg-[#d4af37] shadow-[0_0_15px_rgba(212,175,55,0.6)] z-20" />
 

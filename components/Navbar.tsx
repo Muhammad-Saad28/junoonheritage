@@ -18,7 +18,7 @@ export default function Navbar() {
       <div className="h-20 max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between px-6">
         <div className="flex items-center gap-space-md">
           <Link href="/" className="group flex flex-col items-start">
-            <img alt="JUNOON Logo" className="h-12 w-auto object-contain drop-shadow-md" src="/logo.png" />
+            <img alt="JUNOON Logo" className="h-20 w-auto object-contain drop-shadow-md" src="/logo.png" />
           </Link>
         </div>
         <nav className="hidden xl:flex items-center gap-8">

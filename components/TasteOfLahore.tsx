@@ -58,10 +58,10 @@ export default function TasteOfLahore() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="h-screen w-full bg-junoon-beige flex flex-col justify-center items-center overflow-hidden relative">
+    <section ref={containerRef} className="h-screen w-full bg-junoon-dark flex flex-col justify-center items-center overflow-hidden relative">
       
       {/* Background Images */}
-      <div className="absolute inset-0 z-0 opacity-40 mix-blend-luminosity">
+      <div className="absolute inset-0 z-0 opacity-50 mix-blend-luminosity">
         {LETTERS.map((item, i) => (
           <div 
             key={`img-${i}`}
@@ -72,7 +72,7 @@ export default function TasteOfLahore() {
       </div>
       
       {/* Dark overlay for contrast */}
-      <div className="absolute inset-0 bg-junoon-beige/60 z-10" />
+      <div className="absolute inset-0 bg-junoon-dark/80 z-10" />
 
       {/* Typography Mask */}
       <div className="relative z-20 flex flex-col items-center justify-center h-full w-full">
@@ -81,14 +81,14 @@ export default function TasteOfLahore() {
         <div className="h-12 w-full flex justify-center items-center absolute top-[25%] md:top-[30%]">
           {LETTERS.map((item, i) => (
             <div key={`caption-${i}`} className="lahore-caption absolute text-center">
-              <span className="font-label-caps text-junoon-charcoal/50 tracking-[0.4em] uppercase text-xs block mb-2">A Taste Of</span>
-              <span className="font-playfair text-[#d4af37] text-3xl md:text-5xl italic">{item.title}</span>
+              <span className="font-label-caps text-junoon-cream/80 tracking-[0.4em] uppercase text-xs block mb-2 drop-shadow-md">A Taste Of</span>
+              <span className="font-playfair text-[#d4af37] text-4xl md:text-6xl italic drop-shadow-lg">{item.title}</span>
             </div>
           ))}
         </div>
 
         {/* Giant Letters */}
-        <div className="flex items-center justify-between w-full max-w-[90vw] md:max-w-[80vw] px-4 font-playfair font-black text-[15vw] md:text-[18vw] leading-none uppercase select-none">
+        <div className="flex items-center justify-between w-full max-w-[90vw] md:max-w-[80vw] px-4 font-playfair font-black text-[15vw] md:text-[18vw] leading-none uppercase select-none drop-shadow-2xl">
           {LETTERS.map((item, i) => (
             <span 
               key={`letter-${i}`} 

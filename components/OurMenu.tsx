@@ -68,14 +68,17 @@ export default function OurMenu() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative w-full bg-[#050603] flex flex-col items-center">
+    <section ref={containerRef} className="relative w-full bg-[#4a582c] flex flex-col items-center">
       
       {/* Title Header */}
-      <div className="w-full max-w-[1440px] px-margin md:px-margin-tablet lg:px-margin-desktop py-24 z-10 flex flex-col items-center text-center">
-        <span className="font-label-caps text-[#d4af37] tracking-[0.4em] text-xs uppercase mb-4">Our Menu</span>
-        <h2 className="font-playfair text-5xl md:text-7xl text-white font-light">
-          Flavors of <span className="italic text-[#d4af37]">Tradition</span>
-        </h2>
+      <div className="relative w-full py-24 flex flex-col items-center justify-center text-center z-10 border-b border-[#d4af37]/20">
+        <div className="relative z-10 flex flex-col items-center">
+          <span className="font-label-caps text-[#d4af37] tracking-[0.5em] text-xs uppercase mb-6 drop-shadow-md">Our Menu</span>
+          <h2 className="font-playfair text-6xl md:text-8xl text-white font-light drop-shadow-xl">
+            Flavors of <span className="italic text-[#d4af37]">Tradition</span>
+          </h2>
+          <div className="w-24 h-[1px] bg-[#d4af37]/50 mt-12" />
+        </div>
       </div>
 
       <div className="w-full relative">

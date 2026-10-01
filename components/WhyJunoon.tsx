@@ -42,7 +42,7 @@ export default function WhyJunoon() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative w-full min-h-screen bg-junoon-olive py-24 px-6 md:px-12 flex flex-col justify-center items-center overflow-hidden">
+    <section className="relative w-full min-h-screen bg-junoon-dark bg-gradient-to-b from-junoon-dark via-[#1A140F] to-junoon-dark py-24 px-6 md:px-12 flex flex-col justify-center items-center overflow-hidden">
       
       {/* Title Area */}
       <div className="w-full max-w-[1440px] mb-12 flex flex-col items-center text-center z-10">

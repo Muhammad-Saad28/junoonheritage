@@ -14,7 +14,7 @@ export default function GalleryPage() {
   ];
 
   return (
-    <main className="w-full bg-[#3e472f] min-h-screen pt-24 text-white">
+    <main className="w-full bg-junoon-dark min-h-screen pt-24 text-white">
       <Navbar />
       <section className="max-w-[1440px] mx-auto px-6 py-12 md:py-24">
         <div className="text-center mb-16">
