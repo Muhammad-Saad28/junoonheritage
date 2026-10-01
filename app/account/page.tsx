@@ -24,15 +24,6 @@ export default function AccountPage() {
             <Link href="/wishlist" className="flex items-center gap-4 py-4 px-6 text-white/60 hover:bg-[#1A140F] hover:text-white border-l-2 border-transparent hover:border-[#d4af37]/50 font-label-caps uppercase tracking-[0.2em] text-xs transition-colors">
               <Heart size={16} /> Wishlist
             </Link>
-            <Link href="/account/orders" className="flex items-center gap-4 py-4 px-6 text-white/60 hover:bg-[#1A140F] hover:text-white border-l-2 border-transparent hover:border-[#d4af37]/50 font-label-caps uppercase tracking-[0.2em] text-xs transition-colors">
-              <Clock size={16} /> Order History
-            </Link>
-            <Link href="/account/reservations" className="flex items-center gap-4 py-4 px-6 text-white/60 hover:bg-[#1A140F] hover:text-white border-l-2 border-transparent hover:border-[#d4af37]/50 font-label-caps uppercase tracking-[0.2em] text-xs transition-colors">
-              <Calendar size={16} /> Reservations
-            </Link>
-            <Link href="/account/addresses" className="flex items-center gap-4 py-4 px-6 text-white/60 hover:bg-[#1A140F] hover:text-white border-l-2 border-transparent hover:border-[#d4af37]/50 font-label-caps uppercase tracking-[0.2em] text-xs transition-colors">
-              <MapPin size={16} /> Addresses
-            </Link>
             <div className="pt-8 mt-8 border-t border-[#d4af37]/20">
               <button className="flex items-center gap-4 py-4 px-6 text-red-400 hover:bg-[#1A140F]/50 font-label-caps uppercase tracking-[0.2em] text-xs w-full transition-colors text-left">
                 <LogOut size={16} /> Sign Out

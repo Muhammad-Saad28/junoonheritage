@@ -100,8 +100,10 @@ export default function Page() {
       </header><main className="w-full bg-junoon-olive min-h-screen"><div className="w-full block">
 
         <section className="relative w-full h-[100svh] bg-black text-on-primary overflow-hidden">
-          {/* Full Background Image */}
-          <img id="hero-frame" alt="Hero Animation" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-cover object-center" />
+          {/* Blurred Background Layer to prevent black borders without cropping */}
+          <img src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-cover object-center opacity-40 blur-3xl scale-125 saturate-150" aria-hidden="true" />
+          {/* Main Hero Frame (object-contain ensures nothing is cut out) */}
+          <img id="hero-frame" alt="Hero Animation" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-contain object-center z-0 drop-shadow-2xl" />
           <div className={`absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-1000 ${animState === 'done' ? 'opacity-100' : 'opacity-0'}`}></div>
 
           {/* Initial BBQ Text */}
