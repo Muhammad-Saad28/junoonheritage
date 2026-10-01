@@ -3,14 +3,12 @@ import Navbar from "@/components/Navbar";
 export default function GalleryPage() {
   // Using some frames as gallery images
   const images = [
-    "/frames/junoon-frame-010.webp",
-    "/frames/junoon-frame-050.webp",
-    "/frames/junoon-frame-100.webp",
-    "/frames/junoon-frame-150.webp",
-    "/frames/junoon-frame-200.webp",
-    "/frames/junoon-frame-250.webp",
-    "/frames/junoon-frame-280.webp",
-    "/frames/junoon-frame-300.webp",
+    "/images/lahore_1940_vintage.png",
+    "/images/mughal_ambiance.png",
+    "/images/wood_fired_hearth.png",
+    "/images/signature_biryani.png",
+    "/images/lahore_1940_vintage.png",
+    "/images/mughal_ambiance.png",
   ];
 
   return (

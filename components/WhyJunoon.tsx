@@ -9,7 +9,7 @@ const CARDS = [
     title: "ROOFTOP VIEWS",
     subtitle: "Lahore beneath the evening sky",
     desc: "Breathtaking views of Badshahi Mosque and Lahore Fort to see our signature dishes and warm hospitality.",
-    image: "/frames/junoon-frame-037.webp",
+    image: "/images/rooftop.png",
     icon: MapPin,
   },
   {
@@ -17,7 +17,7 @@ const CARDS = [
     title: "CULINARY HERITAGE",
     subtitle: "Flavors of the Indus",
     desc: "Discover a menu of Traditional Handi and BBQ flavours that bring you back to the authentic tastes of Lahore.",
-    image: "/frames/junoon-frame-290.webp",
+    image: "/images/signature_biryani.png",
     icon: UtensilsCrossed,
   },
   {
@@ -25,7 +25,7 @@ const CARDS = [
     title: "MUGHAL LEGACY",
     subtitle: "The Royal Ambiance",
     desc: "Our restaurant brings the rich cultural heritage of Lahore to every corner, with traditional hands-on cooking.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBpm0U9SBIZgn561FHxRfUOQUKqryofqcAuoN81_DmVrJS_s00jUiXKqgrUfo3EXyUB6EOfnzQJUF4S7xD9nStyBwco-SF1p7GhN1ErjnNaGc_DXlHgOSoioW_qGRhrOTkYBApHfMZDbDQM7rfIR1-3MSRwKNndWErxibEzmasoBaGEhfhoY8dvIV3qAgeWFYBljdPOiD58a2069L30tnnC3o08_EsdHnN5hwvAQ21OkDlt6O7I7nLr",
+    image: "/images/lahore_1940_vintage.png",
     icon: Sparkles,
   },
   {
@@ -33,7 +33,7 @@ const CARDS = [
     title: "LAHORI WELCOME",
     subtitle: "Mehmaan-nawazi",
     desc: "Mehmaan-nawazi is in our DNA — every guest is welcomed with sincere care and unwavering dedication.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCtLeSlrzI9uYTsPGiR1VLoO81OIGxWUMFLA_V2Hxs0JUAeh2YuJTUwfx7sYWDeEV_z8rH_mEjfvU5thg_0AQiiJM-UYnsLtDLqMJjf1nB3TVJDfwN-BU7zt3RcDQG2gDZ0ChyeNIB76Tas-_55qpDNNrbamQ-ymO5J6BMiLjLVe_sh-CFjD4_fWrTFRskSaKonVnOKEV0CQuircdH6fyU95FyXmbq7bFo052Q0DNJb9PnBm-t2UULW",
+    image: "/images/mughal_ambiance.png",
     icon: HeartHandshake,
   },
 ];
@@ -42,7 +42,7 @@ export default function WhyJunoon() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative w-full min-h-screen bg-junoon-dark bg-gradient-to-b from-junoon-dark via-[#1A140F] to-junoon-dark py-24 px-6 md:px-12 flex flex-col justify-center items-center overflow-hidden">
+    <section className="relative w-full min-h-screen bg-[#4a582c] py-24 px-6 md:px-12 flex flex-col justify-center items-center overflow-hidden">
       
       {/* Title Area */}
       <div className="w-full max-w-[1440px] mb-12 flex flex-col items-center text-center z-10">
@@ -103,26 +103,26 @@ export default function WhyJunoon() {
                   className="w-10 h-10 rounded-full bg-black/40 border border-junoon-gold/30 flex items-center justify-center mb-6 backdrop-blur-md"
                   animate={{
                     borderColor: isHovered ? "rgba(184,148,82,0.8)" : "rgba(184,148,82,0.3)",
-                    color: isHovered ? "#d4af37" : "rgba(255,255,255,0.6)"
+                    color: isHovered ? "#d4af37" : "white"
                   }}
                 >
                   <Icon size={18} />
                 </motion.div>
 
-                <h3 className="font-label-caps text-junoon-gold text-xs tracking-[0.3em] uppercase mb-2">
+                <h3 className="font-label-caps text-white text-xs tracking-[0.3em] uppercase mb-2 drop-shadow-md">
                   {card.title}
                 </h3>
 
-                <div className="overflow-hidden">
+                <div className="overflow-hidden pb-4">
                   <motion.div
                     initial={false}
                     animate={{
                       y: isHovered ? 0 : 20,
-                      opacity: isHovered ? 1 : 0.6,
+                      opacity: isHovered ? 1 : 0.8,
                     }}
                     transition={{ duration: 0.4 }}
                   >
-                    <h4 className="font-playfair text-2xl md:text-3xl text-junoon-cream mb-3">
+                    <h4 className="font-playfair text-2xl md:text-3xl text-white mb-3 drop-shadow-lg">
                       {isHovered ? card.subtitle : card.title}
                     </h4>
                   </motion.div>

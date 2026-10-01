@@ -15,7 +15,7 @@ export default function ExperiencePage() {
 
         <div className="grid md:grid-cols-2 gap-12 items-center mt-20">
           <div className="aspect-square bg-[#1A140F] flex items-center justify-center overflow-hidden border border-[#d4af37]/20 shadow-2xl">
-            <img src="/frames/junoon-frame-150.webp" alt="Wood-fired hearth" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" />
+            <img src="/images/wood_fired_hearth.png" alt="Wood-fired hearth" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" />
           </div>
           <div className="px-8">
             <h2 className="text-4xl font-playfair text-[#d4af37] mb-6">The Hearth</h2>
@@ -39,7 +39,7 @@ export default function ExperiencePage() {
             </p>
           </div>
           <div className="aspect-square bg-[#1A140F] flex items-center justify-center overflow-hidden border border-[#d4af37]/20 shadow-2xl order-1 md:order-2">
-            <img src="/frames/junoon-frame-290.webp" alt="Ambiance" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" />
+            <img src="/images/mughal_ambiance.png" alt="Ambiance" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" />
           </div>
         </div>
       </section>
