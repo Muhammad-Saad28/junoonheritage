@@ -4,8 +4,12 @@ import { User, MapPin, Calendar, Heart, Clock, LogOut } from "lucide-react";
 
 export default function AccountPage() {
   return (
-    <div className="min-h-screen bg-junoon-dark pt-32 pb-24 px-6 md:px-12 text-junoon-cream">
-      <div className="max-w-[1200px] mx-auto">
+    <div className="relative min-h-screen bg-[#0A0806] pt-32 pb-24 px-6 md:px-12 text-junoon-cream overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute inset-0 bg-[url('/images/mughal_ambiance.png')] opacity-[0.05] bg-cover bg-center mix-blend-luminosity pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0806] via-transparent to-[#0A0806] pointer-events-none"></div>
+
+      <div className="relative z-10 max-w-[1200px] mx-auto">
         <h1 className="font-playfair text-5xl md:text-6xl text-white font-light mb-12 border-b border-[#d4af37]/20 pb-8">
           My <span className="italic text-[#d4af37]">Account</span>
         </h1>
@@ -14,7 +18,7 @@ export default function AccountPage() {
           
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-2">
-            <Link href="/account" className="flex items-center gap-4 py-4 px-6 bg-[#4a582c] text-white border-l-2 border-[#d4af37] font-label-caps uppercase tracking-[0.2em] text-xs transition-colors">
+            <Link href="/account" className="flex items-center gap-4 py-4 px-6 bg-[#120E0A] text-white border-l-2 border-[#d4af37] font-label-caps uppercase tracking-[0.2em] text-xs transition-colors">
               <User size={16} className="text-[#d4af37]" /> Profile
             </Link>
             <Link href="/wishlist" className="flex items-center gap-4 py-4 px-6 text-white/60 hover:bg-[#1A140F] hover:text-white border-l-2 border-transparent hover:border-[#d4af37]/50 font-label-caps uppercase tracking-[0.2em] text-xs transition-colors">
@@ -56,13 +60,13 @@ export default function AccountPage() {
                   <div className="text-white font-body-md bg-junoon-dark px-4 py-3 rounded border border-[#d4af37]/10">tariq.rafiq@example.com</div>
                 </div>
               </div>
-              <button className="mt-8 px-8 py-3 bg-[#4a582c] text-white font-label-caps uppercase tracking-[0.2em] text-xs hover:bg-[#5c6c37] transition-colors border border-[#d4af37]/30">
+              <button className="mt-8 px-8 py-3 bg-[#120E0A] text-white font-label-caps uppercase tracking-[0.2em] text-xs hover:bg-[#d4af37] hover:text-black transition-colors border border-[#d4af37]/30">
                 Edit Profile
               </button>
             </section>
 
             {/* Upcoming Reservation */}
-            <section className="bg-[#4a582c] p-8 rounded-lg border border-[#d4af37]/20 relative overflow-hidden">
+            <section className="bg-[#120E0A] p-8 rounded-lg border border-[#d4af37]/20 relative overflow-hidden">
               <div className="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-luminosity pointer-events-none" style={{backgroundImage: "url('/frames/junoon-frame-290.webp')"}} />
               <div className="relative z-10">
                 <h2 className="font-playfair text-3xl text-white mb-2">Upcoming Reservation</h2>

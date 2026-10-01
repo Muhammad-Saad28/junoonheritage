@@ -28,8 +28,12 @@ const WISHLIST_ITEMS = [
 
 export default function WishlistPage() {
   return (
-    <div className="min-h-screen bg-junoon-dark pt-32 pb-24 px-6 md:px-12 text-junoon-cream">
-      <div className="max-w-[1440px] mx-auto">
+    <div className="relative min-h-screen bg-[#0A0806] pt-32 pb-24 px-6 md:px-12 text-junoon-cream overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute inset-0 bg-[url('/images/mughal_ambiance.png')] opacity-[0.05] bg-cover bg-center mix-blend-luminosity pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0806] via-transparent to-[#0A0806] pointer-events-none"></div>
+
+      <div className="relative z-10 max-w-[1440px] mx-auto">
         <div className="flex items-center gap-4 mb-12">
           <Link href="/account" className="flex items-center gap-2 text-junoon-gold hover:text-white transition-colors uppercase tracking-[0.2em] font-label-caps text-xs">
             <ArrowLeft size={16} /> Back to Account

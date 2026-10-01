@@ -4,13 +4,13 @@ import { ArrowLeft } from "lucide-react";
 
 export default function SignupPage() {
   return (
-    <div className="min-h-screen bg-junoon-dark flex items-center justify-center p-6 text-junoon-cream relative overflow-hidden">
+    <div className="min-h-screen bg-[#0A0806] flex items-center justify-center p-6 text-junoon-cream relative overflow-hidden">
       {/* Background ambient image */}
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-luminosity" 
         style={{backgroundImage: "url('/frames/junoon-frame-150.webp')"}} 
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-junoon-dark via-junoon-dark/80 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0806] via-[#0A0806]/80 to-transparent" />
 
       <div className="w-full max-w-xl relative z-10 py-12">
         <Link href="/" className="inline-flex items-center gap-2 text-junoon-gold hover:text-white transition-colors uppercase tracking-[0.2em] font-label-caps text-xs mb-8">
