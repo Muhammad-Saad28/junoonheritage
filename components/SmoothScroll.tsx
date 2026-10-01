@@ -18,6 +18,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       mouseMultiplier: 1,
       smoothTouch: false,
       touchMultiplier: 2,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
     function raf(time: number) {

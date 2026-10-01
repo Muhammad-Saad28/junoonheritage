@@ -38,9 +38,9 @@ export default function OurMenu() {
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const cards = gsap.utils.toArray(".menu-card");
+    const cards = gsap.utils.toArray(".menu-card") as HTMLElement[];
 
-    cards.forEach((card: any, i: number) => {
+    cards.forEach((card, i) => {
       // The last card doesn't need to be pinned
       if (i === cards.length - 1) return;
 

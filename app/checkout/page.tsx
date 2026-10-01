@@ -73,7 +73,7 @@ export default function CheckoutPage() {
               {/* Item 1 */}
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-junoon-dark rounded border border-[#d4af37]/20 flex items-center justify-center relative overflow-hidden">
-                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpm0U9SBIZgn561FHxRfUOQUKqryofqcAuoN81_DmVrJS_s00jUiXKqgrUfo3EXyUB6EOfnzQJUF4S7xD9nStyBwco-SF1p7GhN1ErjnNaGc_DXlHgOSoioW_qGRhrOTkYBApHfMZDbDQM7rfIR1-3MSRwKNndWErxibEzmasoBaGEhfhoY8dvIV3qAgeWFYBljdPOiD58a2069L30tnnC3o08_EsdHnN5hwvAQ21OkDlt6O7I7nLr" className="opacity-70 object-cover w-full h-full absolute inset-0" />
+                  <img alt="Spice Blend" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpm0U9SBIZgn561FHxRfUOQUKqryofqcAuoN81_DmVrJS_s00jUiXKqgrUfo3EXyUB6EOfnzQJUF4S7xD9nStyBwco-SF1p7GhN1ErjnNaGc_DXlHgOSoioW_qGRhrOTkYBApHfMZDbDQM7rfIR1-3MSRwKNndWErxibEzmasoBaGEhfhoY8dvIV3qAgeWFYBljdPOiD58a2069L30tnnC3o08_EsdHnN5hwvAQ21OkDlt6O7I7nLr" className="opacity-70 object-cover w-full h-full absolute inset-0" />
                   <div className="absolute -top-2 -right-2 w-5 h-5 bg-[#d4af37] text-junoon-dark rounded-full flex items-center justify-center text-[10px] font-bold z-10">1</div>
                 </div>
                 <div className="flex-1">
@@ -85,7 +85,7 @@ export default function CheckoutPage() {
               {/* Item 2 */}
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-junoon-dark rounded border border-[#d4af37]/20 flex items-center justify-center relative overflow-hidden">
-                  <img src="/frames/junoon-frame-037.webp" className="opacity-70 object-cover w-full h-full absolute inset-0" />
+                  <img alt="Tasting Experience" src="/frames/junoon-frame-037.webp" className="opacity-70 object-cover w-full h-full absolute inset-0" />
                   <div className="absolute -top-2 -right-2 w-5 h-5 bg-[#d4af37] text-junoon-dark rounded-full flex items-center justify-center text-[10px] font-bold z-10">1</div>
                 </div>
                 <div className="flex-1">
