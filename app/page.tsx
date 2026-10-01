@@ -1,4 +1,6 @@
 "use client";
+import SignatureDishes from '@/components/SignatureDishes';
+import ChefPhilosophy from '@/components/ChefPhilosophy';
 import React, { useEffect, useState, useRef } from 'react';
 
 export default function Page() {
@@ -16,8 +18,7 @@ export default function Page() {
   useEffect(() => {
     const frameImg = document.getElementById('hero-frame') as HTMLImageElement;
     if (!frameImg) return;
-    
-    let currentFrame = 1;
+    let currentFrame = 37;
     const totalFrames = 300; 
     let intervalId: NodeJS.Timeout;
 
@@ -68,7 +69,7 @@ export default function Page() {
 
 <section className="relative w-full h-screen bg-primary text-on-primary overflow-hidden">
   {/* Full Background Image */}
-  <img id="hero-frame" alt="Hero Animation" src="/frames/junoon-frame-001.webp" className="absolute inset-0 w-full h-full object-cover" />
+  <img id="hero-frame" alt="Hero Animation" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-cover" />
   <div className={`absolute inset-0 bg-primary/40 backdrop-blur-[2px] transition-opacity duration-1000 ${animState === 'done' ? 'opacity-100' : 'opacity-0'}`}></div>
   
   {/* Initial BBQ Text */}
@@ -117,6 +118,10 @@ export default function Page() {
     </div>
   </div>
 </section>
+
+<SignatureDishes />
+<ChefPhilosophy />
+
 
 <section className="w-full bg-inverse-surface text-surface-bright py-space-2xl relative overflow-hidden">
 <div className="max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop relative z-10">
