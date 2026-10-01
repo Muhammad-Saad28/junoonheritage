@@ -4,8 +4,12 @@ import { ArrowLeft, Trash2, ShoppingBag } from "lucide-react";
 
 export default function CartPage() {
   return (
-    <div className="min-h-screen bg-junoon-dark pt-32 pb-24 px-6 md:px-12 text-junoon-cream">
-      <div className="max-w-[1200px] mx-auto">
+    <div className="relative min-h-screen bg-[#0A0806] pt-32 pb-24 px-6 md:px-12 text-junoon-cream overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute inset-0 bg-[url('/images/mughal_ambiance.png')] opacity-[0.05] bg-cover bg-center mix-blend-luminosity pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0806] via-transparent to-[#0A0806] pointer-events-none"></div>
+
+      <div className="relative z-10 max-w-[1200px] mx-auto">
         <div className="flex items-center gap-4 mb-12">
           <Link href="/menu" className="flex items-center gap-2 text-junoon-gold hover:text-white transition-colors uppercase tracking-[0.2em] font-label-caps text-xs">
             <ArrowLeft size={16} /> Continue Exploring
@@ -74,7 +78,7 @@ export default function CartPage() {
           </div>
 
           <div className="lg:col-span-1">
-            <div className="bg-[#4a582c] p-8 rounded-lg border border-[#d4af37]/20 sticky top-32">
+            <div className="bg-[#120E0A] p-8 rounded-lg border border-[#d4af37]/20 sticky top-32">
               <h3 className="font-playfair text-3xl text-white mb-6">Order Summary</h3>
               
               <div className="space-y-4 font-body-sm text-white/80 border-b border-[#d4af37]/20 pb-6 mb-6">

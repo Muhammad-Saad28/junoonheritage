@@ -2,8 +2,13 @@ import Navbar from "@/components/Navbar";
 
 export default function ReservationsPage() {
   return (
-    <main className="w-full bg-junoon-dark min-h-screen pt-24 text-white">
-      <Navbar />
+    <main className="relative w-full bg-[#0A0806] min-h-screen pt-32 pb-24 text-white overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute inset-0 bg-[url('/images/mughal_ambiance.png')] opacity-[0.05] bg-cover bg-center mix-blend-luminosity pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0806] via-transparent to-[#0A0806] pointer-events-none"></div>
+      
+      <div className="relative z-10">
+        <Navbar />
       <section className="max-w-[1440px] mx-auto px-6 py-12 md:py-24 flex flex-col items-center">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-7xl font-playfair text-[#d4af37] mb-6">Reservations</h1>
@@ -12,7 +17,7 @@ export default function ReservationsPage() {
           </p>
         </div>
 
-        <div className="w-full max-w-2xl bg-[#4a582c] border border-[#d4af37]/30 p-8 md:p-12 shadow-2xl relative overflow-hidden">
+        <div className="w-full max-w-2xl bg-[#120E0A] border border-[#d4af37]/30 p-8 md:p-12 shadow-2xl relative overflow-hidden mt-8">
           {/* Decorative Corner Ornaments */}
           <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#d4af37] m-4 opacity-50"></div>
           <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#d4af37] m-4 opacity-50"></div>
@@ -89,6 +94,7 @@ export default function ReservationsPage() {
           </form>
         </div>
       </section>
+      </div>
     </main>
   );
 }
