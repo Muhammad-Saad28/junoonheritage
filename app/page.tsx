@@ -12,6 +12,8 @@ import Image from 'next/image';
 export default function Page() {
   const [animState, setAnimState] = useState('initial');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLoadingFrames, setIsLoadingFrames] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
     if (animState !== 'done') {
@@ -25,40 +27,100 @@ export default function Page() {
   useEffect(() => {
     const frameImg = document.getElementById('hero-frame') as HTMLImageElement;
     if (!frameImg) return;
+    
     let currentFrame = 37;
     const totalFrames = 300;
-    let intervalId: NodeJS.Timeout;
+    const framesToPreload = 40; // Buffer the first 40 frames
+    let loadedCount = 0;
+    let animationFrameId: number;
+    let initialDelayId: NodeJS.Timeout;
 
-    const initialDelay = setTimeout(() => {
-      setAnimState('playing');
-      intervalId = setInterval(() => {
-        if (currentFrame >= totalFrames) {
-          clearInterval(intervalId);
-          setAnimState('done');
-          return;
-        }
-        currentFrame++;
-        const frameString = currentFrame.toString().padStart(3, '0');
-        frameImg.src = `/frames/junoon-frame-${frameString}.webp`;
+    // 1. Preload Phase
+    for (let i = 0; i < framesToPreload; i++) {
+      const img = new window.Image();
+      img.onload = () => {
+        loadedCount++;
+        setLoadingProgress(Math.floor((loadedCount / framesToPreload) * 100));
         
-        // JIT Preload the next 3 frames to prevent stuttering
-        for (let next = 1; next <= 3; next++) {
-          if (currentFrame + next <= totalFrames) {
-            const pre = new window.Image();
-            pre.src = `/frames/junoon-frame-${(currentFrame + next).toString().padStart(3, '0')}.webp`;
-          }
+        if (loadedCount === framesToPreload) {
+          // Finish loading, wait a moment, then start animation
+          setTimeout(() => {
+            setIsLoadingFrames(false);
+            startAnimation();
+          }, 800);
         }
-      }, 40);
-    }, 2000);
+      };
+      // If image fails, still count it so we don't hang forever
+      img.onerror = () => {
+        loadedCount++;
+        if (loadedCount === framesToPreload) setIsLoadingFrames(false);
+      }
+      img.src = `/frames/junoon-frame-${(currentFrame + i).toString().padStart(3, '0')}.webp`;
+    }
+
+    // 2. Playback Phase (Buttery Smooth requestAnimationFrame)
+    const startAnimation = () => {
+      let lastTime = 0;
+      const fps = 30; // 30 FPS for optimal smoothness
+      const interval = 1000 / fps;
+
+      initialDelayId = setTimeout(() => {
+        setAnimState('playing');
+        
+        const loop = (timestamp: number) => {
+          if (!lastTime) lastTime = timestamp;
+          const deltaTime = timestamp - lastTime;
+
+          if (deltaTime >= interval) {
+            lastTime = timestamp - (deltaTime % interval);
+            
+            if (currentFrame >= totalFrames) {
+              setAnimState('done');
+              return;
+            }
+            
+            currentFrame++;
+            const frameString = currentFrame.toString().padStart(3, '0');
+            frameImg.src = `/frames/junoon-frame-${frameString}.webp`;
+            
+            // JIT Preload further ahead now that we have a buffer
+            const nextPreload = currentFrame + framesToPreload;
+            if (nextPreload <= totalFrames) {
+               const pre = new window.Image();
+               pre.src = `/frames/junoon-frame-${nextPreload.toString().padStart(3, '0')}.webp`;
+            }
+          }
+          animationFrameId = requestAnimationFrame(loop);
+        };
+        
+        animationFrameId = requestAnimationFrame(loop);
+      }, 1000);
+    };
 
     return () => {
-      clearTimeout(initialDelay);
-      if (intervalId) clearInterval(intervalId);
+      if (initialDelayId) clearTimeout(initialDelayId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
     <>
+      {/* --- PRELOADER OVERLAY --- */}
+      <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0c07] transition-all duration-1000 ${isLoadingFrames ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+        <div className="flex flex-col items-center gap-6">
+          <Image src="/logo.png" alt="Junoon Logo" width={180} height={100} className="opacity-80 animate-pulse drop-shadow-lg" priority />
+          <div className="w-48 h-[2px] bg-white/10 relative overflow-hidden rounded-full">
+            <div 
+              className="absolute top-0 left-0 h-full bg-[#d4af37] transition-all duration-300 ease-out"
+              style={{ width: `${loadingProgress}%` }}
+            ></div>
+          </div>
+          <span className="font-label-caps text-[#d4af37] text-xs tracking-[0.3em] uppercase mt-2">
+            Igniting the Hearth... {loadingProgress}%
+          </span>
+        </div>
+      </div>
+
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-1000 bg-[#4a582c]/95 backdrop-blur-md border-b border-[#d4af37]/20 shadow-xl ${animState === 'done' ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
         <div className="h-20 max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between">
           <div className="flex items-center gap-space-md">
