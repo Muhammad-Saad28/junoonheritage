@@ -44,7 +44,7 @@ export default function Page() {
         // JIT Preload the next 3 frames to prevent stuttering
         for (let next = 1; next <= 3; next++) {
           if (currentFrame + next <= totalFrames) {
-            const pre = new Image();
+            const pre = new window.Image();
             pre.src = `/frames/junoon-frame-${(currentFrame + next).toString().padStart(3, '0')}.webp`;
           }
         }
