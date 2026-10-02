@@ -7,6 +7,7 @@ import OurMenu from '@/components/OurMenu';
 import GallerySection from '@/components/GallerySection';
 import Testimonials from '@/components/Testimonials';
 import React, { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 
 export default function Page() {
   const [animState, setAnimState] = useState('initial');
@@ -62,7 +63,7 @@ export default function Page() {
         <div className="h-20 max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between">
           <div className="flex items-center gap-space-md">
             <a className="group flex flex-col items-start" data-path="our-story" href="/">
-              <img alt="JUNOON Logo" className="h-20 w-auto object-contain drop-shadow-md" src="/logo.png" />
+              <Image alt="JUNOON Logo" className="h-20 w-auto object-contain drop-shadow-md" src="/logo.png" width={150} height={80} priority />
             </a>
           </div>
           <nav className="hidden xl:flex items-center gap-space-xl">
@@ -109,7 +110,7 @@ export default function Page() {
 
         <section className="relative w-full h-[100svh] bg-black text-on-primary overflow-hidden">
           {/* Blurred Background Layer to prevent black borders without cropping */}
-          <img alt="" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-cover object-center opacity-40 blur-3xl scale-125 saturate-150" aria-hidden="true" />
+          <Image alt="" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-cover object-center opacity-40 blur-3xl scale-125 saturate-150" aria-hidden="true" fill priority />
           {/* Main Hero Frame (object-contain ensures nothing is cut out) */}
           <img id="hero-frame" alt="Hero Animation" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-contain object-center z-0 drop-shadow-2xl" />
           <div className={`absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-1000 ${animState === 'done' ? 'opacity-100' : 'opacity-0'}`}></div>
@@ -248,7 +249,7 @@ export default function Page() {
             {/* Branding Column */}
             <div className="md:col-span-5 flex flex-col justify-between">
               <div className="space-y-6">
-                <img src="/logo.png" alt="Junoon Logo" className="w-32 h-auto opacity-90" />
+                <Image src="/logo.png" alt="Junoon Logo" className="w-32 h-auto opacity-90" width={128} height={68} />
                 <p className="font-manrope text-sm text-white/60 max-w-sm leading-loose font-light">
                   Courtly Mughlai gastronomic heritage harmonized with contemporary Punjabi culinary art. An archival dining immersion in the heart of Gulberg III.
                 </p>

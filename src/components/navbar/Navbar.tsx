@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -19,10 +20,13 @@ export function Navbar() {
       <div className="h-20 max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between">
         <div className="flex items-center gap-space-md">
           {/* We will replace this image tag with Next/Image and local asset once files are ready */}
-          <img
+          <Image
             alt="JUNOON Heritage Luxury Wordmark Logo"
             className="h-8 w-auto object-contain"
             src="/junoon-logo.png"
+            width={120}
+            height={32}
+            priority
           />
           <Link href="/" className="group flex flex-col items-start">
             <span className="font-headline-sm text-headline-sm uppercase tracking-[0.25em] text-primary group-hover:text-primary-container transition-colors">

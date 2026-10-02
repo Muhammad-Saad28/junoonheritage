@@ -1,5 +1,6 @@
 "use client";
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
@@ -20,7 +21,7 @@ export default function Navbar() {
       <div className="h-20 max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="group flex flex-col items-start">
-            <img alt="JUNOON Logo" className="h-16 md:h-20 w-auto object-contain drop-shadow-md" src="/logo.png" />
+            <Image alt="JUNOON Logo" className="h-16 md:h-20 w-auto object-contain drop-shadow-md" src="/logo.png" width={150} height={80} priority />
           </Link>
         </div>
         <nav className="hidden xl:flex items-center gap-8">

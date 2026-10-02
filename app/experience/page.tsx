@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Image from "next/image";
 
 export default function ExperiencePage() {
   return (
@@ -19,8 +20,8 @@ export default function ExperiencePage() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center mt-20">
-          <div className="aspect-square bg-[#1A140F] flex items-center justify-center overflow-hidden border border-[#d4af37]/20 shadow-2xl">
-            <img src="/images/wood_fired_hearth.png" alt="Wood-fired hearth" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" />
+          <div className="aspect-square bg-[#1A140F] relative flex items-center justify-center overflow-hidden border border-[#d4af37]/20 shadow-2xl">
+            <Image src="/images/wood_fired_hearth.png" alt="Wood-fired hearth" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" fill />
           </div>
           <div className="px-8">
             <h2 className="text-4xl font-playfair text-[#d4af37] mb-6">The Hearth</h2>
@@ -43,8 +44,8 @@ export default function ExperiencePage() {
               Whether you are seated at an intimate table or in our grand dining hall, the atmosphere at Junoon is crafted to make every meal feel like a royal banquet.
             </p>
           </div>
-          <div className="aspect-square bg-[#1A140F] flex items-center justify-center overflow-hidden border border-[#d4af37]/20 shadow-2xl order-1 md:order-2">
-            <img src="/images/mughal_ambiance.png" alt="Ambiance" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" />
+          <div className="aspect-square bg-[#1A140F] relative flex items-center justify-center overflow-hidden border border-[#d4af37]/20 shadow-2xl order-1 md:order-2">
+            <Image src="/images/mughal_ambiance.png" alt="Ambiance" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" fill />
           </div>
         </div>
       </section>

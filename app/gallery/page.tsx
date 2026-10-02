@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Image from "next/image";
 
 export default function GalleryPage() {
   // Using some frames as gallery images
@@ -30,9 +31,11 @@ export default function GalleryPage() {
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
           {images.map((src, index) => (
             <div key={index} className="break-inside-avoid relative overflow-hidden group border border-[#d4af37]/20 shadow-lg">
-              <img 
+              <Image 
                 src={src} 
                 alt={`Gallery image ${index + 1}`} 
+                width={600}
+                height={800}
                 className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">

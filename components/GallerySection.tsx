@@ -1,6 +1,7 @@
-﻿"use client";
+"use client";
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 
 const GALLERY_IMGS = [
   { src:"https://lh3.googleusercontent.com/aida-public/AB6AXuBpm0U9SBIZgn561FHxRfUOQUKqryofqcAuoN81_DmVrJS_s00jUiXKqgrUfo3EXyUB6EOfnzQJUF4S7xD9nStyBwco-SF1p7GhN1ErjnNaGc_DXlHgOSoioW_qGRhrOTkYBApHfMZDbDQM7rfIR1-3MSRwKNndWErxibEzmasoBaGEhfhoY8dvIV3qAgeWFYBljdPOiD58a2069L30tnnC3o08_EsdHnN5hwvAQ21OkDlt6O7I7nLr", alt:"Grand Hall", label:"Grand Dining Hall", wide:false },
@@ -35,7 +36,7 @@ export default function GallerySection() {
             {GALLERY_IMGS.map((img,i)=>(
               <motion.div key={i} whileHover={{scale:1.03}}
                 style={{ position:"relative", overflow:"hidden", gridColumn:img.wide?"span 2":"span 1", aspectRatio:img.wide?"21/9":"auto", cursor:"pointer" }}>
-                <img src={img.src} alt={img.alt} style={{ width:"100%", height:"100%", objectFit:"cover", transition:"transform 0.7s cubic-bezier(0.16,1,0.3,1)" }} />
+                <Image src={img.src} alt={img.alt} fill style={{ objectFit:"cover", transition:"transform 0.7s cubic-bezier(0.16,1,0.3,1)" }} />
                 <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top, rgba(11,14,8,0.75) 0%, transparent 50%)" }} />
                 <span style={{ position:"absolute", bottom:10, left:12, fontFamily:"Manrope,sans-serif", fontSize:8.5, letterSpacing:"0.3em", color:"rgba(212,175,55,0.9)", textTransform:"uppercase" }}>{img.label}</span>
               </motion.div>

@@ -2,6 +2,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { MapPin } from 'lucide-react';
+import Image from 'next/image';
 
 export default function ChefPhilosophy() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,7 +21,7 @@ export default function ChefPhilosophy() {
         style={{ y: y1 }}
         className="absolute inset-0 w-full h-[120%] -top-[10%] z-0"
       >
-        <img src="/frames/junoon-frame-290.webp" alt="Wood fired hearth" className="w-full h-full object-cover opacity-30" />
+        <Image src="/frames/junoon-frame-290.webp" alt="Wood fired hearth" fill className="object-cover opacity-30" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#2c3322] via-[#2c3322]/50 to-[#2c3322]"></div>
       </motion.div>
 

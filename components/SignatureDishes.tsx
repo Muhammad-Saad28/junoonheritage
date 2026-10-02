@@ -1,6 +1,7 @@
-﻿"use client";
+"use client";
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const dishes = [
   {
@@ -96,12 +97,11 @@ export default function SignatureDishes() {
               }}
             >
               {/* Image */}
-              <img
+              <Image
                 src={dish.frame}
                 alt={dish.name}
+                fill
                 style={{
-                  position:'absolute', inset:0,
-                  width:'100%', height:'100%',
                   objectFit:'cover',
                   transform: isHovered ? 'scale(1.08)' : 'scale(1.02)',
                   transition:'transform 0.85s cubic-bezier(0.16,1,0.3,1)',
