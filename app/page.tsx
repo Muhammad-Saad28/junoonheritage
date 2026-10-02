@@ -12,8 +12,7 @@ import Image from 'next/image';
 export default function Page() {
   const [animState, setAnimState] = useState('initial');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isLoadingFrames, setIsLoadingFrames] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (animState !== 'done') {
@@ -23,100 +22,27 @@ export default function Page() {
     }
   }, [animState]);
 
-  // Hero Animation Logic
+  // Video Animation Logic
   useEffect(() => {
-    const frameImg = document.getElementById('hero-frame') as HTMLImageElement;
-    if (!frameImg) return;
-    
-    let currentFrame = 37;
-    const totalFrames = 300;
-    const framesToPreload = 40; // Buffer the first 40 frames
-    let loadedCount = 0;
-    let animationFrameId: number;
-    let initialDelayId: NodeJS.Timeout;
-
-    // 1. Preload Phase
-    for (let i = 0; i < framesToPreload; i++) {
-      const img = new window.Image();
-      img.onload = () => {
-        loadedCount++;
-        setLoadingProgress(Math.floor((loadedCount / framesToPreload) * 100));
-        
-        if (loadedCount === framesToPreload) {
-          // Finish loading, wait a moment, then start animation
-          setTimeout(() => {
-            setIsLoadingFrames(false);
-            startAnimation();
-          }, 800);
-        }
-      };
-      // If image fails, still count it so we don't hang forever
-      img.onerror = () => {
-        loadedCount++;
-        if (loadedCount === framesToPreload) setIsLoadingFrames(false);
+    const timer = setTimeout(() => {
+      setAnimState('playing');
+      if (videoRef.current) {
+        // Force play the video
+        videoRef.current.play().catch(e => console.warn('Autoplay blocked:', e));
       }
-      img.src = `/frames/junoon-frame-${(currentFrame + i).toString().padStart(3, '0')}.webp`;
-    }
+    }, 2000); // 2 second initial delay before starting
 
-    // 2. Playback Phase (Buttery Smooth requestAnimationFrame)
-    const startAnimation = () => {
-      let lastTime = 0;
-      const fps = 30; // 30 FPS for optimal smoothness
-      const interval = 1000 / fps;
-
-      initialDelayId = setTimeout(() => {
-        setAnimState('playing');
-        
-        const loop = (timestamp: number) => {
-          if (!lastTime) lastTime = timestamp;
-          const deltaTime = timestamp - lastTime;
-
-          if (deltaTime >= interval) {
-            lastTime = timestamp - (deltaTime % interval);
-            
-            if (currentFrame >= totalFrames) {
-              setAnimState('done');
-              return;
-            }
-            
-            currentFrame++;
-            const frameString = currentFrame.toString().padStart(3, '0');
-            frameImg.src = `/frames/junoon-frame-${frameString}.webp`;
-            
-            // JIT Preload further ahead now that we have a buffer
-            const nextPreload = currentFrame + framesToPreload;
-            if (nextPreload <= totalFrames) {
-               const pre = new window.Image();
-               pre.src = `/frames/junoon-frame-${nextPreload.toString().padStart(3, '0')}.webp`;
-            }
-          }
-          animationFrameId = requestAnimationFrame(loop);
-        };
-        
-        animationFrameId = requestAnimationFrame(loop);
-      }, 1000);
-    };
-
-    return () => {
-      if (initialDelayId) clearTimeout(initialDelayId);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
-      {/* --- PRELOADER OVERLAY --- */}
-      <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0c07] transition-all duration-1000 ${isLoadingFrames ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+      {/* --- INITIAL LOADING OVERLAY --- */}
+      <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0c07] transition-all duration-1000 ${animState === 'initial' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
         <div className="flex flex-col items-center gap-6">
           <Image src="/logo.png" alt="Junoon Logo" width={180} height={100} className="opacity-80 animate-pulse drop-shadow-lg" priority />
-          <div className="w-48 h-[2px] bg-white/10 relative overflow-hidden rounded-full">
-            <div 
-              className="absolute top-0 left-0 h-full bg-[#d4af37] transition-all duration-300 ease-out"
-              style={{ width: `${loadingProgress}%` }}
-            ></div>
-          </div>
-          <span className="font-label-caps text-[#d4af37] text-xs tracking-[0.3em] uppercase mt-2">
-            Igniting the Hearth... {loadingProgress}%
+          <span className="font-label-caps text-[#d4af37] text-xs tracking-[0.3em] uppercase mt-2 animate-pulse">
+            Igniting the Hearth...
           </span>
         </div>
       </div>
@@ -172,10 +98,30 @@ export default function Page() {
 
         <section className="relative w-full h-[100svh] bg-black text-on-primary overflow-hidden">
           {/* Blurred Background Layer to prevent black borders without cropping */}
-          <Image alt="" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-cover object-center opacity-40 blur-3xl scale-125 saturate-150" aria-hidden="true" fill priority />
-          {/* Main Hero Frame (object-contain ensures nothing is cut out) */}
-          <img id="hero-frame" alt="Hero Animation" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-contain object-center z-0 drop-shadow-2xl" />
-          <div className={`absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-1000 ${animState === 'done' ? 'opacity-100' : 'opacity-0'}`}></div>
+          <Image alt="" src="/frames/junoon-frame-037.webp" className={`absolute inset-0 w-full h-full object-cover object-center opacity-40 blur-3xl scale-125 saturate-150 transition-opacity duration-1000 ${animState === 'done' ? 'opacity-30' : 'opacity-40'}`} aria-hidden="true" fill priority />
+          
+          {/* INITIAL FRAME (037) - Shown before video plays */}
+          <div className={`absolute inset-0 z-0 transition-opacity duration-500 ${animState === 'initial' ? 'opacity-100' : 'opacity-0'}`}>
+            <Image alt="Hero Start" src="/frames/junoon-frame-037.webp" className="w-full h-full object-contain object-center drop-shadow-2xl" fill priority />
+          </div>
+
+          {/* THE VIDEO */}
+          <video 
+            ref={videoRef}
+            className={`absolute inset-0 w-full h-full object-contain object-center z-0 drop-shadow-2xl transition-opacity duration-500 ${animState === 'playing' ? 'opacity-100' : 'opacity-0'}`}
+            muted 
+            playsInline 
+            onEnded={() => setAnimState('done')}
+            src="/animation1.webm"
+            preload="auto"
+          />
+
+          {/* FINAL FRAME (300) - Shown perfectly after video ends */}
+          <div className={`absolute inset-0 z-0 transition-opacity duration-1000 ${animState === 'done' ? 'opacity-100' : 'opacity-0'}`}>
+             <Image alt="Hero End" src="/frames/junoon-frame-300.webp" className="w-full h-full object-contain object-center drop-shadow-2xl" fill priority />
+          </div>
+
+          <div className={`absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-1000 ${animState === 'done' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}></div>
 
           {/* Initial BBQ Text */}
           <div className={`absolute bottom-8 right-8 text-junoon-cream font-display-lg text-6xl md:text-[8rem] tracking-widest transition-all duration-1000 ${animState === 'initial' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
