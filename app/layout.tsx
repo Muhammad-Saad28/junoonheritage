@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "JUNOON | The Soul of Pakistani Cuisine",
   description: "An archival culinary journey traversing royal Mughal repasts and the raw, wood-fired hearths of the Indus.",
+  icons: {
+    icon: "/logo.png",
+  }
 };
 
 import JunoonLight from "@/components/JunoonLight";
