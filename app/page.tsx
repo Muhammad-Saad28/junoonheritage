@@ -61,7 +61,7 @@ export default function Page() {
           if (loadedCount === initialBuffer) setIsLoadingFrames(false);
         }
       };
-      img.src = `/frames/junoon-frame-${frameNum.toString().padStart(3, '0')}.webp`;
+      img.src = `/frames-compressed/junoon-frame-${frameNum.toString().padStart(3, '0')}.webp`;
     };
 
     // 1. Preload Phase (First 100 frames)
@@ -101,7 +101,7 @@ export default function Page() {
               
               currentFrame++;
               const frameString = currentFrame.toString().padStart(3, '0');
-              frameImg.src = `/frames/junoon-frame-${frameString}.webp`;
+              frameImg.src = `/frames-compressed/junoon-frame-${frameString}.webp`;
               
               if (currentFrame >= totalFrames) {
                 setAnimState('done');
@@ -195,9 +195,9 @@ export default function Page() {
 
         <section className="relative w-full h-[100svh] bg-black text-on-primary overflow-hidden">
           {/* Blurred Background Layer to prevent black borders without cropping */}
-          <Image alt="" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-cover object-center opacity-40 blur-3xl scale-125 saturate-150" aria-hidden="true" fill priority />
+          <Image alt="" src="/frames-compressed/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-cover object-center opacity-40 blur-3xl scale-125 saturate-150" aria-hidden="true" fill priority />
           {/* Main Hero Frame (object-contain ensures nothing is cut out) */}
-          <img id="hero-frame" alt="Hero Animation" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-contain object-center z-0 drop-shadow-2xl" />
+          <img id="hero-frame" alt="Hero Animation" src="/frames-compressed/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-contain object-center z-0 drop-shadow-2xl" />
           <div className={`absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-1000 ${animState === 'done' ? 'opacity-100' : 'opacity-0'}`}></div>
 
           {/* Initial BBQ Text */}
