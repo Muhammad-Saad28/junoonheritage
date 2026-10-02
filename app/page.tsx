@@ -12,7 +12,9 @@ import Image from 'next/image';
 export default function Page() {
   const [animState, setAnimState] = useState('initial');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isLoadingFrames, setIsLoadingFrames] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const loadedFramesSet = useRef<Set<number>>(new Set());
 
   useEffect(() => {
     if (animState !== 'done') {
@@ -22,27 +24,122 @@ export default function Page() {
     }
   }, [animState]);
 
-  // Video Animation Logic
+  // Hero Animation Logic
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimState('playing');
-      if (videoRef.current) {
-        // Force play the video
-        videoRef.current.play().catch(e => console.warn('Autoplay blocked:', e));
-      }
-    }, 2000); // 2 second initial delay before starting
+    const frameImg = document.getElementById('hero-frame') as HTMLImageElement;
+    if (!frameImg) return;
+    
+    let currentFrame = 37;
+    const totalFrames = 300;
+    const initialBuffer = 100; // Load 100 frames first as requested
+    let loadedCount = 0;
+    let animationFrameId: number;
+    let initialDelayId: NodeJS.Timeout;
 
-    return () => clearTimeout(timer);
+    // Helper to load a specific frame and track it
+    const loadFrame = (frameNum: number, isInitial = false) => {
+      if (loadedFramesSet.current.has(frameNum)) return;
+      const img = new window.Image();
+      img.onload = () => {
+        loadedFramesSet.current.add(frameNum);
+        if (isInitial) {
+          loadedCount++;
+          setLoadingProgress(Math.floor((loadedCount / initialBuffer) * 100));
+          if (loadedCount === initialBuffer) {
+            setTimeout(() => {
+              setIsLoadingFrames(false);
+              startAnimation();
+            }, 500);
+          }
+        }
+      };
+      img.onerror = () => {
+        // If it fails, add it anyway so the animation doesn't get permanently stuck
+        loadedFramesSet.current.add(frameNum);
+        if (isInitial) {
+          loadedCount++;
+          if (loadedCount === initialBuffer) setIsLoadingFrames(false);
+        }
+      };
+      img.src = `/frames/junoon-frame-${frameNum.toString().padStart(3, '0')}.webp`;
+    };
+
+    // 1. Preload Phase (First 100 frames)
+    for (let i = 0; i < initialBuffer; i++) {
+      loadFrame(currentFrame + i, true);
+    }
+    
+    // Proactively start fetching the rest of the frames in the background slowly
+    // to prevent hammering the network all at once.
+    let backgroundLoadIndex = currentFrame + initialBuffer;
+    const backgroundLoader = setInterval(() => {
+      if (backgroundLoadIndex <= totalFrames) {
+        loadFrame(backgroundLoadIndex);
+        backgroundLoadIndex++;
+      } else {
+        clearInterval(backgroundLoader);
+      }
+    }, 50); // Request one new frame every 50ms in the background
+
+    // 2. Playback Phase (Strict Buffer requestAnimationFrame)
+    const startAnimation = () => {
+      let lastTime = 0;
+      const fps = 30; // 30 FPS
+      const interval = 1000 / fps;
+
+      initialDelayId = setTimeout(() => {
+        setAnimState('playing');
+        
+        const loop = (timestamp: number) => {
+          if (!lastTime) lastTime = timestamp;
+          const deltaTime = timestamp - lastTime;
+
+          if (deltaTime >= interval) {
+            // ONLY advance if the NEXT frame is actually loaded and ready
+            if (loadedFramesSet.current.has(currentFrame + 1)) {
+              lastTime = timestamp - (deltaTime % interval);
+              
+              currentFrame++;
+              const frameString = currentFrame.toString().padStart(3, '0');
+              frameImg.src = `/frames/junoon-frame-${frameString}.webp`;
+              
+              if (currentFrame >= totalFrames) {
+                setAnimState('done');
+                return; // Stop animation loop
+              }
+            } else {
+              // BUFFERING... The animation pauses here naturally if it catches up to the network
+              lastTime = timestamp; // Reset timer so it doesn't skip frames when it resumes
+            }
+          }
+          animationFrameId = requestAnimationFrame(loop);
+        };
+        
+        animationFrameId = requestAnimationFrame(loop);
+      }, 500);
+    };
+
+    return () => {
+      if (backgroundLoader) clearInterval(backgroundLoader);
+      if (initialDelayId) clearTimeout(initialDelayId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return (
     <>
-      {/* --- INITIAL LOADING OVERLAY --- */}
-      <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0c07] transition-all duration-1000 ${animState === 'initial' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+      {/* --- PRELOADER OVERLAY --- */}
+      <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0c07] transition-all duration-1000 ${isLoadingFrames ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
         <div className="flex flex-col items-center gap-6">
           <Image src="/logo.png" alt="Junoon Logo" width={180} height={100} className="opacity-80 animate-pulse drop-shadow-lg" priority />
-          <span className="font-label-caps text-[#d4af37] text-xs tracking-[0.3em] uppercase mt-2 animate-pulse">
-            Igniting the Hearth...
+          <div className="w-48 h-[2px] bg-white/10 relative overflow-hidden rounded-full">
+            <div 
+              className="absolute top-0 left-0 h-full bg-[#d4af37] transition-all duration-300 ease-out"
+              style={{ width: `${loadingProgress}%` }}
+            ></div>
+          </div>
+          <span className="font-label-caps text-[#d4af37] text-xs tracking-[0.3em] uppercase mt-2">
+            Igniting the Hearth... {loadingProgress}%
           </span>
         </div>
       </div>
@@ -98,30 +195,10 @@ export default function Page() {
 
         <section className="relative w-full h-[100svh] bg-black text-on-primary overflow-hidden">
           {/* Blurred Background Layer to prevent black borders without cropping */}
-          <Image alt="" src="/frames/junoon-frame-037.webp" className={`absolute inset-0 w-full h-full object-cover object-center opacity-40 blur-3xl scale-125 saturate-150 transition-opacity duration-1000 ${animState === 'done' ? 'opacity-30' : 'opacity-40'}`} aria-hidden="true" fill priority />
-          
-          {/* INITIAL FRAME (037) - Shown before video plays */}
-          <div className={`absolute inset-0 z-0 transition-opacity duration-500 ${animState === 'initial' ? 'opacity-100' : 'opacity-0'}`}>
-            <Image alt="Hero Start" src="/frames/junoon-frame-037.webp" className="w-full h-full object-contain object-center drop-shadow-2xl" fill priority />
-          </div>
-
-          {/* THE VIDEO */}
-          <video 
-            ref={videoRef}
-            className={`absolute inset-0 w-full h-full object-contain object-center z-0 drop-shadow-2xl transition-opacity duration-500 ${animState === 'playing' ? 'opacity-100' : 'opacity-0'}`}
-            muted 
-            playsInline 
-            onEnded={() => setAnimState('done')}
-            src="/animation1.webm"
-            preload="auto"
-          />
-
-          {/* FINAL FRAME (300) - Shown perfectly after video ends */}
-          <div className={`absolute inset-0 z-0 transition-opacity duration-1000 ${animState === 'done' ? 'opacity-100' : 'opacity-0'}`}>
-             <Image alt="Hero End" src="/frames/junoon-frame-300.webp" className="w-full h-full object-contain object-center drop-shadow-2xl" fill priority />
-          </div>
-
-          <div className={`absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-1000 ${animState === 'done' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}></div>
+          <Image alt="" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-cover object-center opacity-40 blur-3xl scale-125 saturate-150" aria-hidden="true" fill priority />
+          {/* Main Hero Frame (object-contain ensures nothing is cut out) */}
+          <img id="hero-frame" alt="Hero Animation" src="/frames/junoon-frame-037.webp" className="absolute inset-0 w-full h-full object-contain object-center z-0 drop-shadow-2xl" />
+          <div className={`absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-1000 ${animState === 'done' ? 'opacity-100' : 'opacity-0'}`}></div>
 
           {/* Initial BBQ Text */}
           <div className={`absolute bottom-8 right-8 text-junoon-cream font-display-lg text-6xl md:text-[8rem] tracking-widest transition-all duration-1000 ${animState === 'initial' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
@@ -255,10 +332,10 @@ export default function Page() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 lg:gap-24 border-b border-[#d4af37]/20 pb-20">
             
             {/* Branding Column */}
-            <div className="md:col-span-5 flex flex-col justify-between">
+            <div className="md:col-span-4 flex flex-col justify-between">
               <div className="space-y-6">
-                <Image src="/logo.png" alt="Junoon Logo" className="w-32 h-auto opacity-90" width={128} height={68} />
-                <p className="font-manrope text-sm text-white/60 max-w-sm leading-loose font-light">
+                <Image src="/logo.png" alt="Junoon Logo" className="w-28 h-auto opacity-90" width={112} height={60} />
+                <p className="font-manrope text-[11px] md:text-xs text-white/50 max-w-[280px] leading-[1.8] font-light">
                   Courtly Mughlai gastronomic heritage harmonized with contemporary Punjabi culinary art. An archival dining immersion in the heart of Gulberg III.
                 </p>
               </div>
@@ -275,19 +352,19 @@ export default function Page() {
             {/* Location & Hours Column */}
             <div className="md:col-span-4 space-y-8">
               <div>
-                <h4 className="font-label-caps text-xs tracking-[0.3em] uppercase text-[#d4af37] mb-4 flex items-center gap-2">
+                <h4 className="font-label-caps text-[10px] md:text-xs tracking-[0.3em] uppercase text-[#d4af37] mb-4 flex items-center gap-2">
                   <span className="w-4 h-[1px] bg-[#d4af37]"></span> Location
                 </h4>
-                <p className="font-manrope text-sm text-white/70 leading-relaxed font-light">
+                <p className="font-manrope text-[11px] md:text-xs text-white/60 leading-[1.8] font-light">
                   9-C, Block K, Mian Mehmood Ali Kasoori Road,<br />
                   Gulberg III, Lahore, Punjab, Pakistan
                 </p>
               </div>
               <div>
-                <h4 className="font-label-caps text-xs tracking-[0.3em] uppercase text-[#d4af37] mb-4 flex items-center gap-2">
+                <h4 className="font-label-caps text-[10px] md:text-xs tracking-[0.3em] uppercase text-[#d4af37] mb-4 flex items-center gap-2">
                   <span className="w-4 h-[1px] bg-[#d4af37]"></span> Hours of Service
                 </h4>
-                <div className="text-white/70 font-manrope text-sm space-y-2 font-light">
+                <div className="text-white/60 font-manrope text-[11px] md:text-xs space-y-3 font-light">
                   <p className="flex justify-between border-b border-white/5 pb-2"><span>Lunch & High Tea</span> <span>12:30 PM - 4:30 PM</span></p>
                   <p className="flex justify-between border-b border-white/5 pb-2"><span>Dinner Service</span> <span>07:00 PM - 12:00 AM</span></p>
                 </div>
@@ -295,15 +372,15 @@ export default function Page() {
             </div>
             
             {/* Contact Column */}
-            <div className="md:col-span-3 space-y-8">
+            <div className="md:col-span-4 space-y-8">
               <div>
-                <h4 className="font-label-caps text-xs tracking-[0.3em] uppercase text-[#d4af37] mb-4 flex items-center gap-2">
+                <h4 className="font-label-caps text-[10px] md:text-xs tracking-[0.3em] uppercase text-[#d4af37] mb-4 flex items-center gap-2">
                   <span className="w-4 h-[1px] bg-[#d4af37]"></span> Concierge
                 </h4>
-                <p className="font-manrope text-sm text-white/60 font-light mb-4 leading-relaxed">
+                <p className="font-manrope text-[11px] md:text-xs text-white/50 font-light mb-4 leading-[1.8] max-w-[200px]">
                   For bespoke private banquets and tableside tasting itineraries.
                 </p>
-                <a className="font-playfair text-3xl text-white hover:text-[#d4af37] transition-colors block" href="tel:+923334363996">
+                <a className="font-playfair text-lg md:text-xl lg:text-2xl tracking-wider font-light text-white hover:text-[#d4af37] transition-colors block whitespace-nowrap" href="tel:+923334363996">
                   +92 333 4363996
                 </a>
               </div>
